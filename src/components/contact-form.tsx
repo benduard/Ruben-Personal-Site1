@@ -59,7 +59,7 @@ export function ContactForm() {
           supabaseUrl.includes('your-supabase-project-url') || 
           supabaseKey.includes('your-supabase-anon-key') ||
           supabaseUrl === 'https://your-supabase-project-url.supabase.co' ||
-          supabaseKey === 'your-supabase-anon-key') {
+          supabaseKey === 'your-supabase-anon-key' ||
           supabaseUrl.includes('your-project-url') || 
           supabaseKey.includes('your-anon-key')) {
         console.log('⚠️ Supabase not configured, using fallback mode');
@@ -312,7 +312,7 @@ export function ContactForm() {
                 You may receive occasional messages related to your inquiries, updates, or relevant service information. Frequency varies and will not exceed reasonable limits.
               </p>
             </div>
-              </div>
+            
             <div>
               <h3 className="font-semibold text-white mb-2">Opt‑In</h3>
               <p>
@@ -344,6 +344,7 @@ export function ContactForm() {
             <p>
               For questions, contact us at [your email] or [your phone number].
             </p>
+          </div>
         </DialogContent>
       </Dialog>
       <Dialog open={privacyPolicyOpen} onOpenChange={setPrivacyPolicyOpen}>
