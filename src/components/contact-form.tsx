@@ -342,10 +342,6 @@ export function ContactForm() {
                 Your information will be handled according to our Privacy Policy and will not be sold or shared with third parties.
               </p>
             </div>
-            
-            <p>
-              For questions, contact us at [your email] or [your phone number].
-            </p>
           </div>
         </DialogContent>
       </Dialog>
@@ -369,9 +365,6 @@ export function ContactForm() {
             </p>
             <p>
               You may opt out of SMS messages at any time by replying STOP.
-            </p>
-            <p>
-              For privacy questions, contact us at [your email] or [your phone number].
             </p>
           </div>
         </DialogContent>
