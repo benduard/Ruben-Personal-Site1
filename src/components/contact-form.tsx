@@ -189,7 +189,7 @@ export function ContactForm() {
                 control={form.control}
                 name="smsConsent"
                 render={({ field }) => (
-                  <FormItem className={`space-y-2 ${!form.watch('phone') ? 'hidden' : ''}`}>
+                  <FormItem className="space-y-2">
                     <div className="flex items-start space-x-2">
                       <FormControl>
                         <Checkbox
