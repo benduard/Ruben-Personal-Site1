@@ -56,6 +56,10 @@ export function ContactForm() {
       const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
       
       if (!supabaseUrl || !supabaseKey || 
+          supabaseUrl.includes('your-supabase-project-url') || 
+          supabaseKey.includes('your-supabase-anon-key') ||
+          supabaseUrl === 'https://your-supabase-project-url.supabase.co' ||
+          supabaseKey === 'your-supabase-anon-key') {
           supabaseUrl.includes('your-project-url') || 
           supabaseKey.includes('your-anon-key')) {
         console.log('⚠️ Supabase not configured, using fallback mode');
