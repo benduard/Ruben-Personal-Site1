@@ -262,6 +262,13 @@ export function ContactForm() {
                 {submitStatus === 'error' && (
                   <p className="text-red-400 text-center">Failed to send message. Please try again.</p>
                 )}
+              </div>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+      </div>
+
       {/* SMS Terms Modal */}
       <Dialog open={smsTermsOpen} onOpenChange={setSmsTermsOpen}>
         <DialogContent 
@@ -291,35 +298,30 @@ export function ContactForm() {
               <p>
                 You can opt in via our website form or by providing your phone number and consent directly to us.
               </p>
-            </div>
             </form>
             <div>
               <h3 className="font-semibold text-white mb-2">Opt‑Out</h3>
               <p>
                 You can opt out at any time by replying STOP to any message. Reply HELP for help. You may also contact us to be removed.
               </p>
-            </div>
           </Form>
             <div>
               <h3 className="font-semibold text-white mb-2">Message & Data Rates</h3>
               <p>
                 Message and data rates may apply based on your mobile plan.
               </p>
-            </div>
         </CardContent>
             <div>
               <h3 className="font-semibold text-white mb-2">Privacy</h3>
               <p>
                 Your information will be handled according to our Privacy Policy and will not be sold or shared with third parties.
               </p>
-            </div>
       </Card>
             <p>
               For questions, contact us at [your email] or [your phone number].
             </p>
           </div>
         </DialogContent>
-      </Dialog>
       </div>
       {/* Privacy Policy Modal */}
       <Dialog open={privacyPolicyOpen} onOpenChange={setPrivacyPolicyOpen}>
