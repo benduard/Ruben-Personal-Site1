@@ -64,7 +64,7 @@ export function ContactForm() {
           supabaseUrl === 'https://your-project-ref.supabase.co' ||
           supabaseKey === 'your-anon-key-here' ||
           supabaseUrl.length < 20 ||
-          supabaseKey.length < 20) {
+          supabaseKey.length < 20 ||
           supabaseUrl.includes('your-project-url') || 
           supabaseKey.includes('your-anon-key')) {
         console.log('⚠️ Supabase not configured, using fallback mode');
