@@ -49,6 +49,13 @@ export function ContactForm() {
       setIsSubmitting(true);
       setSubmitStatus('idle');
 
+      // Check if Supabase is properly configured
+      if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY || 
+          import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co' || 
+          import.meta.env.VITE_SUPABASE_ANON_KEY === 'placeholder-key') {
+        throw new Error('Supabase is not configured. Please set up your environment variables.');
+      }
+
       console.log('🟢 Form submission started');
       
       const { data, error } = await supabase
