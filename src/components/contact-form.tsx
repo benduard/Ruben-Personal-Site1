@@ -1,6 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,10 +12,16 @@ import { useState } from "react";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
+// E.164 phone number validation regex
+const phoneRegex = /^\+[1-9]\d{1,14}$/;
+
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
-  phone: z.string().optional(),
+  phone: z.string().regex(phoneRegex, "Please enter a valid phone number (e.g., +15551234567)"),
+  smsConsent: z.boolean().refine(val => val === true, {
+    message: "Please agree to receive SMS to continue."
+  }),
   inquiryType: z.string().min(1, "Please select an inquiry type"),
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
@@ -21,6 +29,8 @@ const formSchema = z.object({
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [smsTermsOpen, setSmsTermsOpen] = useState(false);
+  const [privacyPolicyOpen, setPrivacyPolicyOpen] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -28,6 +38,7 @@ export function ContactForm() {
       name: "",
       email: "",
       phone: "",
+      smsConsent: false,
       inquiryType: "",
       message: "",
     },
@@ -45,7 +56,8 @@ export function ContactForm() {
         .insert([{
           name: values.name,
           email: values.email,
-          phone: values.phone || null,
+          phone: values.phone,
+          sms_consent: values.smsConsent,
           service: values.inquiryType,
           message: values.message,
           created_at: new Date().toISOString()
@@ -78,7 +90,8 @@ export function ContactForm() {
   }
 
   return (
-    <div className="relative rounded-[1.25rem] border-[0.75px] border-purple-500/30 p-2 md:rounded-[1.5rem] md:p-3 max-w-5xl mx-auto">
+    <>
+      <div className="relative rounded-[1.25rem] border-[0.75px] border-purple-500/30 p-2 md:rounded-[1.5rem] md:p-3 max-w-5xl mx-auto">
       <Card className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl border-[0.75px] bg-black p-6 shadow-sm dark:shadow-[0px_0px_27px_0px_rgba(45,45,45,0.3)] md:p-6">
         <CardHeader className="max-w-4xl mx-auto w-full">
           <CardTitle className="text-white font-mono">
@@ -136,19 +149,57 @@ export function ContactForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-white font-mono">
-                      Phone Number (Optional)
+                      Phone Number
                     </FormLabel>
                     <FormControl>
                       <Input 
-                        placeholder="(555) 123-4567" 
+                        placeholder="+1 555 123 4567" 
                         type="tel" 
                         {...field} 
                         className="bg-black border-purple-500/30 text-white placeholder:text-white/30 focus-visible:ring-purple-500/50 focus-visible:border-purple-500"
                       />
                     </FormControl>
-                    <p className="text-xs text-white/40 mt-1 leading-relaxed">
-                      By providing your phone number, you agree to receive text messages from us. Message & data rates may apply. Reply STOP to unsubscribe.
-                    </p>
+                    <FormMessage className="text-red-400" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="smsConsent"
+                render={({ field }) => (
+                  <FormItem className="space-y-2">
+                    <div className="flex items-start space-x-2">
+                      <FormControl>
+                        <Checkbox
+                          id="smsConsent"
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                          className="border-purple-500/30 data-[state=checked]:bg-purple-500 data-[state=checked]:border-purple-500"
+                        />
+                      </FormControl>
+                      <FormLabel 
+                        htmlFor="smsConsent"
+                        className="text-xs text-white/60 leading-relaxed cursor-pointer"
+                      >
+                        I agree to receive SMS messages related to my inquiry and services. Message & data rates may apply. See our{" "}
+                        <button
+                          type="button"
+                          onClick={() => setSmsTermsOpen(true)}
+                          className="text-purple-400 hover:text-purple-300 underline"
+                        >
+                          SMS Terms
+                        </button>
+                        {" "}and{" "}
+                        <button
+                          type="button"
+                          onClick={() => setPrivacyPolicyOpen(true)}
+                          className="text-purple-400 hover:text-purple-300 underline"
+                        >
+                          Privacy Policy
+                        </button>
+                        .
+                      </FormLabel>
+                    </div>
                     <FormMessage className="text-red-400" />
                   </FormItem>
                 )}
@@ -211,11 +262,93 @@ export function ContactForm() {
                 {submitStatus === 'error' && (
                   <p className="text-red-400 text-center">Failed to send message. Please try again.</p>
                 )}
+      {/* SMS Terms Modal */}
+      <Dialog open={smsTermsOpen} onOpenChange={setSmsTermsOpen}>
+        <DialogContent 
+          className="bg-black border-purple-500/30 text-white max-w-2xl max-h-[80vh] overflow-y-auto"
+          aria-modal="true"
+          role="dialog"
+        >
+          <DialogHeader>
+            <DialogTitle className="text-white font-mono text-xl">
+              SMS Terms & Conditions
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 text-white/80 text-sm leading-relaxed">
+            <p>
+              By opting in to receive SMS messages from Ruben Valderrama, you agree to the following:
+            </p>
+            
+            <div>
+              <h3 className="font-semibold text-white mb-2">Message Frequency</h3>
+              <p>
+                You may receive occasional messages related to your inquiries, updates, or relevant service information. Frequency varies and will not exceed reasonable limits.
+              </p>
+            </div>
               </div>
+            <div>
+              <h3 className="font-semibold text-white mb-2">Opt‑In</h3>
+              <p>
+                You can opt in via our website form or by providing your phone number and consent directly to us.
+              </p>
+            </div>
             </form>
+            <div>
+              <h3 className="font-semibold text-white mb-2">Opt‑Out</h3>
+              <p>
+                You can opt out at any time by replying STOP to any message. Reply HELP for help. You may also contact us to be removed.
+              </p>
+            </div>
           </Form>
+            <div>
+              <h3 className="font-semibold text-white mb-2">Message & Data Rates</h3>
+              <p>
+                Message and data rates may apply based on your mobile plan.
+              </p>
+            </div>
         </CardContent>
+            <div>
+              <h3 className="font-semibold text-white mb-2">Privacy</h3>
+              <p>
+                Your information will be handled according to our Privacy Policy and will not be sold or shared with third parties.
+              </p>
+            </div>
       </Card>
-    </div>
+            <p>
+              For questions, contact us at [your email] or [your phone number].
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
+      </div>
+      {/* Privacy Policy Modal */}
+      <Dialog open={privacyPolicyOpen} onOpenChange={setPrivacyPolicyOpen}>
+        <DialogContent 
+          className="bg-black border-purple-500/30 text-white max-w-2xl max-h-[80vh] overflow-y-auto"
+          aria-modal="true"
+          role="dialog"
+        >
+          <DialogHeader>
+            <DialogTitle className="text-white font-mono text-xl">
+              Privacy Policy
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 text-white/80 text-sm leading-relaxed">
+            <p>
+              We respect your privacy. When you provide your phone number, email, or other contact details, we use this information solely to communicate with you regarding your inquiries, updates, and services.
+            </p>
+            <p>
+              We do not sell, rent, or share your personal information with third parties.
+            </p>
+            <p>
+              You may opt out of SMS messages at any time by replying STOP.
+            </p>
+            <p>
+              For privacy questions, contact us at [your email] or [your phone number].
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
