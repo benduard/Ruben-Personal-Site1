@@ -324,7 +324,6 @@ export function ContactForm() {
             <p>
               For questions, contact us at [your email] or [your phone number].
             </p>
-          </div>
         </DialogContent>
       </Dialog>
       <Dialog open={privacyPolicyOpen} onOpenChange={setPrivacyPolicyOpen}>
