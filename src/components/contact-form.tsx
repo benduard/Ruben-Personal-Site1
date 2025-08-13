@@ -12,13 +12,10 @@ import { useState } from "react";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-// E.164 phone number validation regex
-const phoneRegex = /^\+[1-9]\d{1,14}$/;
-
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
-  phone: z.string().regex(phoneRegex, "Please enter a valid phone number (e.g., +15551234567)"),
+  phone: z.string().optional(),
   smsConsent: z.boolean().refine(val => val === true, {
     message: "Please agree to receive SMS to continue."
   }),
@@ -178,7 +175,7 @@ export function ContactForm() {
                     </FormLabel>
                     <FormControl>
                       <Input 
-                        placeholder="+1 555 123 4567" 
+                        placeholder="555 123 4567 (optional)" 
                         type="tel" 
                         {...field} 
                         className="bg-black border-purple-500/30 text-white placeholder:text-white/30 focus-visible:ring-purple-500/50 focus-visible:border-purple-500"
@@ -192,7 +189,7 @@ export function ContactForm() {
                 control={form.control}
                 name="smsConsent"
                 render={({ field }) => (
-                  <FormItem className="space-y-2">
+                  <FormItem className={`space-y-2 ${!form.watch('phone') ? 'hidden' : ''}`}>
                     <div className="flex items-start space-x-2">
                       <FormControl>
                         <Checkbox
