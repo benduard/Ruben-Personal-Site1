@@ -305,16 +305,43 @@ export function ContactForm() {
           </DialogHeader>
           <div className="space-y-4 text-white/80 text-sm leading-relaxed">
             <p>
-              For complete SMS terms and conditions, please visit:
+              By opting in to receive SMS messages from Ruben Valderrama, you agree to the following:
             </p>
-            <a 
-              href="https://rubenvalderrama.com/sms-terms" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-purple-400 hover:text-purple-300 underline block"
-            >
-              https://rubenvalderrama.com/sms-terms
-            </a>
+            
+            <div>
+              <h3 className="font-semibold text-white mb-2">Message Frequency</h3>
+              <p>
+                You may receive occasional messages related to your inquiries, updates, or relevant service information. Frequency varies and will not exceed reasonable limits.
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold text-white mb-2">Opt‑In</h3>
+              <p>
+                You can opt in via our website form or by providing your phone number and consent directly to us.
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold text-white mb-2">Opt‑Out</h3>
+              <p>
+                You can opt out at any time by replying STOP to any message. Reply HELP for help. You may also contact us to be removed.
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold text-white mb-2">Message & Data Rates</h3>
+              <p>
+                Message and data rates may apply based on your mobile plan.
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold text-white mb-2">Privacy</h3>
+              <p>
+                Your information will be handled according to our Privacy Policy and will not be sold or shared with third parties.
+              </p>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
