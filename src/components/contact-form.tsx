@@ -298,32 +298,35 @@ export function ContactForm() {
               <p>
                 You can opt in via our website form or by providing your phone number and consent directly to us.
               </p>
-            </form>
+            </div>
+            
             <div>
               <h3 className="font-semibold text-white mb-2">Opt‑Out</h3>
               <p>
                 You can opt out at any time by replying STOP to any message. Reply HELP for help. You may also contact us to be removed.
               </p>
-          </Form>
+            </div>
+            
             <div>
               <h3 className="font-semibold text-white mb-2">Message & Data Rates</h3>
               <p>
                 Message and data rates may apply based on your mobile plan.
               </p>
-        </CardContent>
+            </div>
+            
             <div>
               <h3 className="font-semibold text-white mb-2">Privacy</h3>
               <p>
                 Your information will be handled according to our Privacy Policy and will not be sold or shared with third parties.
               </p>
-      </Card>
+            </div>
+            
             <p>
               For questions, contact us at [your email] or [your phone number].
             </p>
           </div>
         </DialogContent>
-      </div>
-      {/* Privacy Policy Modal */}
+      </Dialog>
       <Dialog open={privacyPolicyOpen} onOpenChange={setPrivacyPolicyOpen}>
         <DialogContent 
           className="bg-black border-purple-500/30 text-white max-w-2xl max-h-[80vh] overflow-y-auto"
