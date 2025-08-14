@@ -305,41 +305,41 @@ export function ContactForm() {
           </DialogHeader>
           <div className="space-y-4 text-white/80 text-sm leading-relaxed">
             <p>
-              By opting in to receive SMS messages from Ruben Valderrama, you agree to the following:
+              By opting in to receive SMS messages from RubenValderrama.com, you agree to the following:
             </p>
             
             <div>
               <h3 className="font-semibold text-white mb-2">Message Frequency</h3>
               <p>
-                You may receive occasional messages related to your inquiries, updates, or relevant service information. Frequency varies and will not exceed reasonable limits.
+                You may receive 4–6 messages per month related to your inquiries, service updates, appointment scheduling, follow-ups, and relevant offers.
               </p>
             </div>
             
             <div>
               <h3 className="font-semibold text-white mb-2">Opt‑In</h3>
               <p>
-                You can opt in via our website form or by providing your phone number and consent directly to us.
+                You can opt in via our website contact form at https://rubenvalderrama.com/contact by checking the consent box before submitting, or by providing your phone number and written consent directly to us.
               </p>
             </div>
             
             <div>
               <h3 className="font-semibold text-white mb-2">Opt‑Out</h3>
               <p>
-                You can opt out at any time by replying STOP to any message. Reply HELP for help. You may also contact us to be removed.
+                You may opt out at any time by replying STOP to any message. To receive assistance, reply HELP or contact us directly. Your opt-out request will be processed immediately.
               </p>
             </div>
             
             <div>
               <h3 className="font-semibold text-white mb-2">Message & Data Rates</h3>
               <p>
-                Message and data rates may apply based on your mobile plan.
+                Message and data rates may apply based on your mobile plan and carrier.
               </p>
             </div>
             
             <div>
               <h3 className="font-semibold text-white mb-2">Privacy</h3>
               <p>
-                Your information will be handled according to our Privacy Policy and will not be sold or shared with third parties.
+                Your information is handled according to our Privacy Policy and will never be sold or shared with third parties.
               </p>
             </div>
           </div>
