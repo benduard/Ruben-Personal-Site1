@@ -358,14 +358,22 @@ export function ContactForm() {
           </DialogHeader>
           <div className="space-y-4 text-white/80 text-sm leading-relaxed">
             <p>
-              We respect your privacy. When you provide your phone number, email, or other contact details, we use this information solely to communicate with you regarding your inquiries, updates, and services.
+              We respect your privacy. When you provide your phone number, email, or other contact details, we use this information solely to communicate with you regarding your inquiries, updates, appointment scheduling, follow-ups, and relevant offers.
             </p>
-            <p>
-              We do not sell, rent, or share your personal information with third parties.
-            </p>
-            <p>
-              You may opt out of SMS messages at any time by replying STOP.
-            </p>
+            
+            <div>
+              <h3 className="font-semibold text-white mb-2">SMS Communications</h3>
+              <p>
+                By opting in to receive SMS messages from RubenValderrama.com, you agree to receive no more than 4–6 text messages per month. You may opt out at any time by replying STOP to any message, which is processed immediately. For assistance, reply HELP or contact us directly. Message and data rates may apply.
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold text-white mb-2">Data Use</h3>
+              <p>
+                Your personal information is used exclusively by RubenValderrama.com and is never sold, rented, or shared with third parties. We retain your contact information only for as long as necessary to fulfill the purposes outlined above.
+              </p>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
