@@ -3,6 +3,7 @@ import { Github, Linkedin, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 
 export function Footer() {
   const [activeIcon, setActiveIcon] = useState<string | null>(null);
@@ -55,6 +56,12 @@ export function Footer() {
                 )}
               </a>
             ))}
+            <Link 
+              to="/privacy-policy" 
+              className="text-white/60 hover:text-purple-400 transition-colors text-sm font-mono"
+            >
+              Privacy Policy & SMS Terms
+            </Link>
           </div>
           <p className="text-sm text-white/60 font-mono">
             © {new Date().getFullYear()} Ruben Valderrama. All rights reserved.
